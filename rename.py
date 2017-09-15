@@ -42,16 +42,16 @@ def _get_name_correspondence(files):
 
 def _get_dup_name(name):
     dup = collections.Counter(name)
-    for k, v in dup.items():
-        if v == 1:
-            del dup[k]
+    del_key = [k for k, v in dup.items() if v == 1]
+    for k in del_key:
+        del dup[k]
     return dup
 
 def _prevent_duplication(name_correspondence):
     dup = _get_dup_name(name_correspondence.values())
     n = sum(dup.values()) - len(dup)
     for _ in range(n):
-        dk, dv = dup.items()[0]
+        dk, dv = list(dup.items())[0]
         for k, v in reversed(sorted(name_correspondence.items())):
             if v == dk:
                 s = "_" * (dv - 1)
