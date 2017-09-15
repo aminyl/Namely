@@ -50,7 +50,6 @@ def _get_dup_name(name):
 def _prevent_duplication(name_correspondence):
     dup = _get_dup_name(name_correspondence.values())
     n = sum(dup.values()) - len(dup)
-    i = 0
     for _ in range(n):
         dk, dv = dup.items()[0]
         for k, v in reversed(sorted(name_correspondence.items())):
@@ -61,7 +60,6 @@ def _prevent_duplication(name_correspondence):
                 dup[dk] -= 1
                 if dup[dk] == 1:
                     del dup[dk]
-                i += 1
                 break
 
 def _save_log(data):
